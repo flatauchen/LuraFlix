@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `).join('');
 
-        profileModal.style.display = 'block';
+        profileModal.style.display = 'flex'; // Usar flex para respeitar o alinhamento central do CSS
         document.body.style.overflow = 'hidden';
 
         profileModal.querySelectorAll('.profile-card').forEach(card => {

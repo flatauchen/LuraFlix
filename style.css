@@ -183,14 +183,20 @@ footer p {
 
 .modal-content {
     background-color: var(--bg-dark);
-    margin: 10% auto;
+    margin: auto;
     padding: 0;
     border: 1px solid #333;
     border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     animation: slideIn 0.3s ease-out;
+    position: relative;
+}
+
+/* Estilo específico para o Modal de Login */
+#loginModal .modal-content {
+    width: 90%;
+    max-width: 400px; /* Largura definida para o login */
+    margin-top: 10%;
 }
 
 @keyframes fadeIn {
@@ -367,42 +373,39 @@ footer p {
 /* Catalog and Profile Modal Styles */
 .profiles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 28px;
-    max-width: 920px;
+    /* Padrão: Cards com tamanho fixo que se ajustam ao espaço disponível */
+    grid-template-columns: repeat(auto-fit, 180px); 
+    gap: 30px;
+    max-width: 1000px;
     width: 100%;
-    margin-bottom: 38px;
-    justify-items: center;
+    margin: 20px auto;
+    justify-content: center; /* Centraliza os itens horizontalmente */
 }
 
 @media (orientation: portrait) {
-    .profile-modal-content {
-        width: min(92vw, 98%);
-    }
-
     .profiles-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        /* Modo Retrato: Um embaixo do outro (Vertical) */
+        grid-template-columns: 1fr;
+        max-width: 250px;
+        justify-items: center;
     }
-
     .profile-card {
-        width: 160px;
+        width: 100%; /* Ocupa a largura total da coluna */
+        max-width: 180px; /* Mas não excede o tamanho ideal */
     }
 }
 
 @media (orientation: landscape) {
     .profiles-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    }
-
-    .profile-card {
-        width: 160px;
+        /* Em paisagem, mantemos o tamanho confortável de 180px */
+        grid-template-columns: repeat(auto-fit, 180px);
     }
 }
 
 .profile-card {
     background-color: #222;
     border-radius: 12px;
-    width: 180px;
+    width: 180px; /* Aumentado para melhor visibilidade no modal largo */
     padding: 20px 16px;
     text-align: center;
     cursor: pointer;
@@ -463,7 +466,7 @@ footer p {
 #profileModal.modal {
     display: none;
     position: fixed;
-    z-index: 1500;
+    z-index: 150;
     left: 0;
     top: 0;
     width: 100%;
@@ -476,9 +479,10 @@ footer p {
 }
 
 .profile-modal-content {
-    width: min(920px, 95%);
-    max-height: 90vh;
-    overflow: hidden;
+    width: 80% !important; /* 80% horizontal da tela */
+    height: auto;
+    max-height: 90vh; /* Até 90% vertical da tela */
+    overflow-y: auto; /* Permite scroll interno se houver muitos perfis */
     background-color: #141414;
     border: 2px solid #2d2d2d;
     border-radius: 12px;
@@ -518,9 +522,8 @@ footer p {
 
 .profile-modal-content .profiles-grid {
     padding: 0 30px 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-    gap: 23px;
+    gap: 30px;
+    justify-content: center;
 }
 
 .profile-modal-content .profile-card {
@@ -713,375 +716,6 @@ footer p {
 
     .nav-links {
         gap: 15px;
-    }
-
-    .profiles-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    .hero-section .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    .content-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-}
-
-/* Additional styles from JS */
-.profiles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 28px;
-    max-width: 920px;
-    width: 100%;
-    margin-bottom: 38px;
-    justify-items: center;
-}
-
-@media (orientation: portrait) {
-    .profile-modal-content {
-        width: min(92vw, 98%);
-    }
-
-    .profiles-grid {
-        grid-template-columns: 1fr;
-        align-items: stretch;
-    }
-
-    .profile-card {
-        width: 100%;
-    }
-}
-
-@media (orientation: landscape) {
-    .profiles-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    }
-
-    .profile-card {
-        width: 160px;
-    }
-}
-
-.profile-card {
-    background-color: #222;
-    border-radius: 12px;
-    width: 180px;
-    padding: 20px 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    border: 2px solid rgba(255,255,255,0.15);
-}
-
-.profile-card:hover {
-    transform: translateY(-5px) scale(1.04);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-    border-color: var(--primary-color);
-}
-
-.profile-card.selected,
-.profile-card:focus-visible {
-    border-color: var(--primary-color);
-    outline: none;
-}
-
-.profile-avatar {
-    font-size: 4.5rem;
-    margin-bottom: 12px;
-}
-
-.profile-name {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    color: #fff;
-}
-
-.profile-actions {
-    text-align: center;
-}
-
-.manage-profiles-btn {
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 700;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.manage-profiles-btn:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-.manage-profiles-btn:active {
-    transform: translateY(0);
-}
-
-/* Profile Modal Styles */
-#profileModal.modal {
-    display: none;
-    position: fixed;
-    z-index: 1500;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-}
-
-.profile-modal-content {
-    width: min(920px, 95%);
-    max-height: 90vh;
-    overflow: hidden;
-    background-color: var(--bg-dark);
-    border: 2px solid #2d2d2d;
-    border-radius: 12px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-}
-
-.profile-modal-content .profile-header {
-    padding: 30px 35px 20px;
-    text-align: center;
-}
-
-.profile-modal-content .profile-header h1 {
-    color: #fff;
-    margin-bottom: 10px;
-    font-size: 2.8rem;
-}
-
-.profile-modal-content .profile-header p {
-    color: #bbb;
-    margin: 0;
-    font-size: 1.05rem;
-}
-
-.profile-close {
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    color: #ccc;
-    font-size: 28px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.profile-close:hover {
-    color: #fff;
-}
-
-.profile-modal-content .profiles-grid {
-    padding: 0 30px 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-    gap: 23px;
-}
-
-.profile-modal-content .profile-card {
-    background: linear-gradient(180deg, #2a2a2a, #1f1f1f);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    padding: 16px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.profile-modal-content .profile-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 26px rgba(0,0,0,0.45);
-    border-color: var(--primary-color);
-}
-
-.profile-modal-content .profile-avatar {
-    font-size: 4.6rem;
-    margin-bottom: 14px;
-}
-
-.profile-modal-content .profile-name {
-    color: #f5f5f5;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-/* Catalog Styles */
-#catalog {
-    min-height: 100vh;
-    background-color: #141414;
-    color: white;
-}
-
-.catalog-header {
-    background-color: rgba(0,0,0,0.8);
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-}
-
-.catalog-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.catalog-nav .logo {
-    font-size: 2rem;
-    color: var(--primary-color);
-    font-weight: bold;
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
-
-.nav-link {
-    color: var(--text-gray);
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: white;
-}
-
-.user-menu {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.catalog-content {
-    padding-top: 100px;
-}
-
-.hero-section {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1489599735734-79b4d4c3b0b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover no-repeat;
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.hero-section .hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.hero-section .hero-content p {
-    font-size: 1.5rem;
-    color: var(--text-gray);
-}
-
-.content-section {
-    margin-bottom: 60px;
-    padding: 0 20px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.content-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.content-item {
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.content-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-
-.content-image {
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    background-color: #404040;
-}
-
-.content-info {
-    padding: 15px;
-}
-
-.content-info h3 {
-    margin: 0 0 8px 0;
-    font-size: 1rem;
-    color: white;
-}
-
-.content-type {
-    color: #ccc;
-    font-size: 0.9rem;
-    background-color: #e50914;
-    padding: 2px 8px;
-    border-radius: 3px;
-    display: inline-block;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 768px) {
-    .catalog-nav {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .nav-links {
-        gap: 15px;
-    }
-
-    .profiles-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
     }
 
     .hero-section .hero-content h1 {
