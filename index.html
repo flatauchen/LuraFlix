@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuraFlix - Streaming de Vídeos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">LuraFlix</div>
+            <h1>Filmes e séries ilimitados</h1>
+            <p>Assista onde quiser. Cancele quando quiser. Entre no mundo do entretenimento sem limites.</p>
+            <a href="#" class="cta-button">Entrar</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Por que escolher LuraFlix?</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>Assista Offline</h3>
+                <p>Baixe seus filmes e séries favoritos para assistir sem conexão com a internet.</p>
+            </div>
+            <div class="feature">
+                <h3>Sem Anúncios</h3>
+                <p>Experiência de streaming pura, sem interrupções de anúncios comerciais.</p>
+            </div>
+            <div class="feature">
+                <h3>Qualidade HD</h3>
+                <p>Conteúdo em alta definição para uma experiência visual imersiva.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 LuraFlix. Todos os direitos reservados.</p>
+        <p>Este é um projeto de demonstração.</p>
+    </footer>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Entrar no LuraFlix</h2>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Usuário:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Entrar</button>
+                </form>
+                <div id="loginMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
