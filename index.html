@@ -13,6 +13,7 @@
             <h1>Filmes e séries ilimitados</h1>
             <p>Assista onde quiser. Cancele quando quiser. Entre no mundo do entretenimento sem limites.</p>
             <a href="#" class="cta-button">Entrar</a>
+            <a href="#" class="cta-button secondary-button" id="openRegister">Registrar</a>
         </div>
     </section>
 
@@ -59,6 +60,37 @@
                     <button type="submit" class="login-btn">Entrar</button>
                 </form>
                 <div id="loginMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegister">&times;</span>
+            <div class="modal-header">
+                <h2>Criar Conta LuraFlix</h2>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regUsername">Usuário:</label>
+                        <input type="text" id="regUsername" required placeholder="Ex: flavio123">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Senha:</label>
+                        <input type="password" id="regPassword" required placeholder="Sua senha segura">
+                    </div>
+                    <div class="form-group">
+                        <label for="regProfiles">Nomes dos Perfis (separados por vírgula):</label>
+                        <input type="text" id="regProfiles" required placeholder="Ex: Flavio, Maria, Kids">
+                        <small style="color: #888; font-size: 0.8rem; margin-top: 5px; display: block;">
+                            O primeiro será o perfil principal.
+                        </small>
+                    </div>
+                    <button type="submit" class="login-btn">Criar Conta</button>
+                </form>
+                <div id="registerMessage"></div>
             </div>
         </div>
     </div>

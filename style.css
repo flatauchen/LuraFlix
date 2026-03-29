@@ -104,6 +104,15 @@ body {
     background-color: var(--primary-hover);
 }
 
+.cta-button.secondary-button {
+    background-color: rgba(128, 128, 128, 0.4);
+    margin-left: 10px;
+}
+
+.cta-button.secondary-button:hover {
+    background-color: rgba(128, 128, 128, 0.6);
+}
+
 .features {
     padding: 80px 20px;
     background-color: var(--bg-black);
@@ -178,25 +187,26 @@ footer p {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+    display: none; /* Será alterado para flex via JS */
+    align-items: center; /* Centraliza Vertical */
+    justify-content: center; /* Centraliza Horizontal */
     animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
     background-color: var(--bg-dark);
-    margin: auto;
     padding: 0;
     border: 1px solid #333;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     animation: slideIn 0.3s ease-out;
     position: relative;
+    width: 90%;
 }
 
 /* Estilo específico para o Modal de Login */
 #loginModal .modal-content {
-    width: 90%;
     max-width: 400px; /* Largura definida para o login */
-    margin-top: 10%;
 }
 
 @keyframes fadeIn {
@@ -224,6 +234,7 @@ footer p {
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s ease;
+    z-index: 10; /* Garante que fique acima de outros elementos internos */
 }
 
 .close:hover,
@@ -319,7 +330,7 @@ footer p {
     animation: messageSlideIn 0.3s ease-out;
 }
 
-.message.success {
+#loginMessage .message.success, #registerMessage .message.success {
     background-color: rgba(46, 125, 50, 0.1);
     border: 1px solid #4caf50;
     color: #81c784;
@@ -426,8 +437,18 @@ footer p {
 }
 
 .profile-avatar {
-    font-size: 4.5rem;
     margin-bottom: 12px;
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .profile-name {
@@ -464,18 +485,8 @@ footer p {
 
 /* Profile Modal Styles */
 #profileModal.modal {
-    display: none;
-    position: fixed;
-    z-index: 150;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     backdrop-filter: blur(4px);
+    z-index: 1100; /* Acima do header do catálogo */
 }
 
 .profile-modal-content {
@@ -546,8 +557,9 @@ footer p {
 }
 
 .profile-modal-content .profile-avatar {
-    font-size: 4.6rem;
     margin-bottom: 14px;
+    width: 120px;
+    height: 120px;
 }
 
 .profile-modal-content .profile-name {
@@ -560,14 +572,24 @@ footer p {
 .current-profile {
     cursor: pointer;
     background: rgba(42,42,42,0.85);
-    padding: 8px 13px;
+    padding: 10px 16px;
     border-radius: 7px;
     border: 1px solid rgba(255,255,255,0.12);
     transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .current-profile:hover {
     background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-profile-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    object-fit: cover;
 }
 
 #catalog {
@@ -687,25 +709,76 @@ footer p {
     justify-content: center;
     font-size: 3rem;
     background-color: #404040;
+    overflow: hidden;
+}
+
+.card-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .content-info {
-    padding: 15px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .content-info h3 {
     margin: 0 0 8px 0;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Novos Controles do Card */
+.card-controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    gap: 5px;
 }
 
 .content-type {
-    color: #ccc;
-    font-size: 0.9rem;
-    background-color: #e50914;
-    padding: 2px 8px;
-    border-radius: 3px;
-    display: inline-block;
+    color: #aaa;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.control-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.control-btn:hover {
+    background-color: white;
+    color: black;
+    border-color: white;
+    transform: scale(1.1);
+}
+
+.play-minimal {
+    justify-self: center;
+}
+
+.list-minimal {
+    justify-self: end;
 }
 
 @media (max-width: 768px) {
@@ -716,6 +789,8 @@ footer p {
 
     .nav-links {
         gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .hero-section .hero-content h1 {
@@ -723,6 +798,91 @@ footer p {
     }
 
     .content-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }
+}
+
+/* ===== PLAYER DE VÍDEO (MODAL) ===== */
+/* Container que mantém a proporção 16:9 do vídeo */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 (9 / 16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    border-radius: 0 0 10px 10px; /* Arredonda apenas o fundo para alinhar com o modal */
+}
+
+/* Faz o iframe ocupar todo o espaço do container pai */
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Estilo específico para o botão de fechar do player */
+.close-player {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    top: -20px; /* Coloca metade para fora do topo */
+    right: -10px; /* Coloca um pouco para fora da lateral */
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+    line-height: 1;
+}
+
+/* Gerenciamento de Perfis */
+.profile-card.manage-mode {
+    position: relative;
+}
+
+.profile-card.manage-mode::after {
+    content: '✎';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 12px;
+}
+
+.add-profile-card {
+    border: 2px dashed #444;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #444;
+}
+
+.add-profile-card:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.profile-edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.delete-profile-btn {
+    background-color: transparent;
+    border: 1px solid #e50914;
+    color: #e50914;
+}
+
+.delete-profile-btn:hover {
+    background-color: #e50914;
+    color: #fff;
 }

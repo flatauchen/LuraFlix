@@ -1,0 +1,14 @@
+{
+    "flatauchen": {
+        "password": "202cb962ac59075b964b07152d234b70",
+        "profiles": [
+            { "id": 1, "name": "Flavio", "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png", "isKid": false, "myList": [
+                { "id": 15, "title": "Avatar", "type": "Série", "thumbnailUrl": "https://img.youtube.com/vi/ooVvH2IYz0w/mqdefault.jpg", "videoUrl": "https://youtube.com/embed/ooVvH2IYz0w" },
+                { "id": 13, "title": "Matrix", "type": "Filme", "thumbnailUrl": "https://img.youtube.com/vi/mPYfd6PCmYY/mqdefault.jpg", "videoUrl": "https://www.youtube.com/embed/mPYfd6PCmYY" },
+                { "id": 14, "title": "Rambo", "type": "Filme", "thumbnailUrl": "https://img.youtube.com/vi/oXngES_l_HQ/mqdefault.jpg", "videoUrl": "https://www.youtube.com/embed/oXngES_l_HQ" }
+            ] },
+            { "id": 2, "name": "Nathália", "avatarUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70b1333850498.56ba69ac32ae3.png", "isKid": false, "myList": [] },
+            { "id": 3, "name": "Mika", "avatarUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/disp/1bdc9a33850498.56ba69ac2ba5b.png", "isKid": true, "myList": [] }
+        ]
+    }
+}

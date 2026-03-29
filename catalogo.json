@@ -1,0 +1,119 @@
+[
+    {
+        "id": 1,
+        "title": "Frozen 2",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/TTIbWKEUPnc",
+        "thumbnailUrl": "https://img.youtube.com/vi/TTIbWKEUPnc/mqdefault.jpg"
+    },
+    {
+        "id": 2,
+        "title": "Toy Story 4",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/VnFgm4BTxMI",
+        "thumbnailUrl": "https://img.youtube.com/vi/VnFgm4BTxMI/mqdefault.jpg"
+    },
+    {
+        "id": 3,
+        "title": "Moana",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/XL4Tf1Eohv8",
+        "thumbnailUrl": "https://img.youtube.com/vi/XL4Tf1Eohv8/mqdefault.jpg"
+    },
+    {
+        "id": 4,
+        "title": "Peppa Pig",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/lGZOFDwnWrI",
+        "thumbnailUrl": "https://img.youtube.com/vi/lGZOFDwnWrI/mqdefault.jpg"
+    },
+    {
+        "id": 5,
+        "title": "Paw Patrol",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/lGZOFDwnWrI",
+        "thumbnailUrl": "https://img.youtube.com/vi/lGZOFDwnWrI/mqdefault.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Bluey",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/hA3-KWa2YfI",
+        "thumbnailUrl": "https://img.youtube.com/vi/hA3-KWa2YfI/mqdefault.jpg"
+    },
+    {
+        "id": 7,
+        "title": "Stranger Things",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/EgUNjiuSsaI",
+        "thumbnailUrl": "https://img.youtube.com/vi/EgUNjiuSsaI/mqdefault.jpg"
+    },
+    {
+        "id": 8,
+        "title": "The Crown",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/dFZC-_T_irA",
+        "thumbnailUrl": "https://img.youtube.com/vi/dFZC-_T_irA/mqdefault.jpg"
+    },
+    {
+        "id": 9,
+        "title": "Breaking Bad",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/_-Nv0JOcGxg",
+        "thumbnailUrl": "https://img.youtube.com/vi/_-Nv0JOcGxg/mqdefault.jpg"
+    },
+    {
+        "id": 10,
+        "title": "Inception",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/R_VX0e0PX90",
+        "thumbnailUrl": "https://img.youtube.com/vi/R_VX0e0PX90/mqdefault.jpg"
+    },
+    {
+        "id": 11,
+        "title": "The Dark Knight",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/8sB1HTghkg4",
+        "thumbnailUrl": "https://img.youtube.com/vi/8sB1HTghkg4/mqdefault.jpg"
+    },
+    {
+        "id": 12,
+        "title": "Pulp Fiction",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/YBZp3tkua2Y",
+        "thumbnailUrl": "https://img.youtube.com/vi/YBZp3tkua2Y/mqdefault.jpg"
+    },    {
+        "id": 13,
+        "title": "Matrix",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/mPYfd6PCmYY",
+        "thumbnailUrl": "https://img.youtube.com/vi/mPYfd6PCmYY/mqdefault.jpg"
+    },    {
+        "id": 14,
+        "title": "Rambo",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/oXngES_l_HQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/oXngES_l_HQ/mqdefault.jpg"
+    },    {
+        "id": 15,
+        "title": "Avatar",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://youtube.com/embed/ooVvH2IYz0w",
+        "thumbnailUrl": "https://img.youtube.com/vi/ooVvH2IYz0w/mqdefault.jpg"
+    }
+]

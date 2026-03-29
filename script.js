@@ -4,6 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Modal de Login
     const modal = document.getElementById('loginModal');
     const loginButton = document.querySelector('.cta-button');
+    
+    const registerModal = document.getElementById('registerModal');
+    const registerButton = document.getElementById('openRegister');
+    const closeRegisterBtn = document.getElementById('closeRegister');
+    const registerForm = document.getElementById('registerForm');
+    const registerMessage = document.getElementById('registerMessage');
+
+    // Configurações de Armazenamento (LocalStorage)
+    const SESSION_KEY = 'luraflix_session';
+    const CUSTOM_USERS_KEY = 'luraflix_db_custom';
+
     const closeBtn = document.querySelector('.close');
     const loginForm = document.getElementById('loginForm');
     const loginMessage = document.getElementById('loginMessage');
@@ -12,8 +23,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loginButton) {
         loginButton.addEventListener('click', function(e) {
             e.preventDefault();
-            modal.style.display = 'block';
+            modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (registerButton) {
+        registerButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (closeRegisterBtn) {
+        closeRegisterBtn.addEventListener('click', function() {
+            registerModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         });
     }
 
@@ -35,33 +61,49 @@ document.addEventListener('DOMContentLoaded', function() {
             loginForm.reset();
             loginMessage.innerHTML = '';
         }
+        if (e.target === registerModal) {
+            registerModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
     });
 
     // Sistema de autenticação
-    const usersDB = {
-        'flatauchen': {
-            password: '202cb962ac59075b964b07152d234b70', // senha: 123 (MD5 hash)
-            profiles: [
-                {
-                    id: 1,
-                    name: 'Flavio',
-                    avatar: '👨',
-                    isKid: false
-                },
-                {
-                    id: 2,
-                    name: 'Nathália',
-                    avatar: '👩',
-                    isKid: false
-                },
-                {
-                    id: 3,
-                    name: 'Mika',
-                    avatar: '👶',
-                    isKid: true
-                }
-            ]
+    let usersDB = {};
+    let catalogDB = [];
+
+    // Função para carregar o banco de dados do arquivo externo
+    async function loadUsersDB() {
+        try {
+            const [usersRes, catalogRes] = await Promise.all([
+                fetch('users.json'),
+                fetch('catalogo.json')
+            ]);
+            
+            if (!usersRes.ok || !catalogRes.ok) throw new Error('Erro ao carregar arquivos de dados.');
+            
+            const defaultUsers = await usersRes.json();
+            catalogDB = await catalogRes.json();
+            
+            // Carregar usuários customizados do LocalStorage e mesclar
+            const customUsers = JSON.parse(localStorage.getItem(CUSTOM_USERS_KEY)) || {};
+            usersDB = { ...defaultUsers, ...customUsers };
+
+            // Verificar se já existe uma sessão ativa (Auto-login) após carregar os dados
+            const activeSession = JSON.parse(localStorage.getItem(SESSION_KEY));
+            if (activeSession && usersDB[activeSession.username]) {
+                showProfileSelection(activeSession.username);
+            }
+        } catch (error) {
+            console.error('Erro ao inicializar banco de dados:', error);
         }
+    }
+
+    loadUsersDB();
+
+    // Função para Logout
+    window.logout = function() {
+        localStorage.removeItem(SESSION_KEY);
+        location.reload(); // Recarrega para resetar o estado da página
     };
 
     // Função simples de hash (para demonstração)
@@ -120,6 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (usersDB[username] && usersDB[username].password === hashedPassword) {
                     showMessage('Login realizado com sucesso! Bem-vindo ao LuraFlix!', 'success');
 
+                    // Salvar sessão para persistência
+                    localStorage.setItem(SESSION_KEY, JSON.stringify({ username }));
+
                     // Simular redirecionamento após sucesso
                     setTimeout(() => {
                         modal.style.display = 'none';
@@ -140,6 +185,61 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = false;
             }, 1000);
         });
+    }
+
+    // Submissão do Registro
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value.trim().toLowerCase();
+            const password = document.getElementById('regPassword').value;
+            const profilesInput = document.getElementById('regProfiles').value;
+
+            if (usersDB[username]) {
+                showRegisterMessage('Este usuário já existe.', 'error');
+                return;
+            }
+
+            // Criar array de perfis a partir da string
+            const profileNames = profilesInput.split(',').map(name => name.trim()).filter(name => name !== '');
+            const profiles = profileNames.map((name, index) => ({
+                id: Date.now() + index,
+                name: name,
+                avatarUrl: index === 0 ? 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png' : 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70b1333850498.56ba69ac32ae3.png',
+                isKid: name.toLowerCase().includes('kids') || name.toLowerCase().includes('mika'),
+                myList: []
+            }));
+
+            if (profiles.length === 0) {
+                showRegisterMessage('Adicione pelo menos um nome de perfil.', 'error');
+                return;
+            }
+
+            // Adicionar ao banco de dados em memória
+            usersDB[username] = {
+                password: md5Hash(password),
+                profiles: profiles
+            };
+
+            // Persistir apenas os customizados no LocalStorage
+            const customUsers = JSON.parse(localStorage.getItem(CUSTOM_USERS_KEY)) || {};
+            customUsers[username] = usersDB[username];
+            localStorage.setItem(CUSTOM_USERS_KEY, JSON.stringify(customUsers));
+
+            showRegisterMessage('Conta criada! Você já pode entrar.', 'success');
+            
+            setTimeout(() => {
+                registerModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                registerForm.reset();
+                modal.style.display = 'block'; // Abre o login para o usuário entrar
+            }, 2000);
+        });
+    }
+
+    function showRegisterMessage(message, type) {
+        registerMessage.innerHTML = `<div class="message ${type}">${message}</div>`;
+        registerMessage.style.display = 'block';
     }
 
     // Função para mostrar mensagens
@@ -181,49 +281,130 @@ document.addEventListener('DOMContentLoaded', function() {
         profileModal.querySelector('.profile-close').addEventListener('click', () => {
             hideProfileModal();
         });
-
-        profileModal.addEventListener('click', (e) => {
-            if (e.target === profileModal) {
-                hideProfileModal();
-            }
-        });
     }
 
-    function showProfileSelection(username) {
+    function showProfileSelection(username, isManageMode = false) {
         const user = usersDB[username];
         if (!user || !user.profiles) return;
 
         createProfileModal();
         const profileModal = document.getElementById('profileModal');
         const profilesGrid = profileModal.querySelector('.profiles-grid');
+        const title = profileModal.querySelector('.profile-header h1');
+        const manageBtn = profileModal.querySelector('.manage-profiles-btn');
 
-        profilesGrid.innerHTML = user.profiles.map(profile => `
-            <div class="profile-card" data-profile-id="${profile.id}" data-is-kid="${profile.isKid}">
-                <div class="profile-avatar">${profile.avatar}</div>
+        title.textContent = isManageMode ? 'Gerenciar Perfis' : 'Quem está assistindo?';
+        manageBtn.textContent = isManageMode ? 'Concluir' : 'Gerenciar perfis';
+
+        let profilesHTML = user.profiles.map(profile => `
+            <div class="profile-card ${isManageMode ? 'manage-mode' : ''}" data-profile-id="${profile.id}">
+                <div class="profile-avatar">
+                    <img src="${profile.avatarUrl}" alt="${profile.name}">
+                </div>
                 <div class="profile-name">${profile.name}</div>
             </div>
         `).join('');
+
+        if (isManageMode && user.profiles.length < 5) {
+            profilesHTML += `
+                <div class="profile-card add-profile-card" id="addNewProfileBtn">
+                    <span>+</span>
+                    <div class="profile-name">Adicionar</div>
+                </div>
+            `;
+        }
+
+        profilesGrid.innerHTML = profilesHTML;
 
         profileModal.style.display = 'flex'; // Usar flex para respeitar o alinhamento central do CSS
         document.body.style.overflow = 'hidden';
 
         profileModal.querySelectorAll('.profile-card').forEach(card => {
             card.addEventListener('click', function() {
+                if (this.id === 'addNewProfileBtn') {
+                    showEditProfileForm(username);
+                    return;
+                }
+
                 const profileId = parseInt(this.dataset.profileId, 10);
-                const profile = user.profiles.find(p => p.id === profileId);
-                if (profile) {
-                    hideProfileModal();
-                    showCatalog(profile, username);
+                if (isManageMode) {
+                    showEditProfileForm(username, profileId);
+                } else {
+                    const profile = user.profiles.find(p => p.id === profileId);
+                    if (profile) {
+                        hideProfileModal();
+                        showCatalog(profile, username);
+                    }
                 }
             });
         });
 
-        const manageProfilesBtn = profileModal.querySelector('.manage-profiles-btn');
-        if (manageProfilesBtn) {
-            manageProfilesBtn.onclick = function() {
-                alert('Funcionalidade de gerenciamento de perfis será implementada em breve!');
+        manageBtn.onclick = () => showProfileSelection(username, !isManageMode);
+    }
+
+    function showEditProfileForm(username, profileId = null) {
+        const user = usersDB[username];
+        const profile = profileId ? user.profiles.find(p => p.id === profileId) : { name: '', avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png', isKid: false };
+
+        const editModal = document.createElement('div');
+        editModal.className = 'modal';
+        editModal.style.display = 'flex';
+        editModal.style.zIndex = '1200';
+        editModal.innerHTML = `
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header"><h2>${profileId ? 'Editar Perfil' : 'Adicionar Perfil'}</h2></div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="form-group"><label>Nome:</label><input type="text" id="editName" value="${profile.name}" required></div>
+                        <div class="form-group"><label>URL do Avatar:</label><input type="url" id="editAvatar" value="${profile.avatarUrl}" required></div>
+                        <div class="form-group" style="display:flex; align-items:center; gap:10px">
+                            <input type="checkbox" id="editIsKid" ${profile.isKid ? 'checked' : ''} style="width:auto">
+                            <label style="margin:0">Perfil Infantil?</label>
+                        </div>
+                        <div class="profile-edit-actions">
+                            <button type="submit" class="login-btn">Salvar</button>
+                            ${profileId ? '<button type="button" class="login-btn delete-profile-btn" id="deleteProfileBtn">Excluir</button>' : ''}
+                            <button type="button" class="login-btn secondary-button" onclick="this.closest('.modal').remove()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(editModal);
+
+        if (profileId) {
+            document.getElementById('deleteProfileBtn').onclick = () => {
+                if (confirm('Deseja excluir este perfil?')) {
+                    user.profiles = user.profiles.filter(p => p.id !== profileId);
+                    saveAndRefresh(username, editModal);
+                }
             };
         }
+
+        document.getElementById('editProfileForm').onsubmit = (e) => {
+            e.preventDefault();
+            const newData = {
+                name: document.getElementById('editName').value,
+                avatarUrl: document.getElementById('editAvatar').value,
+                isKid: document.getElementById('editIsKid').checked
+            };
+
+            if (profileId) {
+                const idx = user.profiles.findIndex(p => p.id === profileId);
+                user.profiles[idx] = { ...user.profiles[idx], ...newData };
+            } else {
+                user.profiles.push({ id: Date.now(), ...newData, myList: [] });
+            }
+            saveAndRefresh(username, editModal);
+        };
+    }
+
+    function saveAndRefresh(username, modalToRemove) {
+        const customUsers = JSON.parse(localStorage.getItem(CUSTOM_USERS_KEY)) || {};
+        customUsers[username] = usersDB[username];
+        localStorage.setItem(CUSTOM_USERS_KEY, JSON.stringify(customUsers));
+        modalToRemove.remove();
+        showProfileSelection(username, true);
     }
 
     function hideProfileModal() {
@@ -233,6 +414,89 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'auto';
         }
     }
+
+    // Função para abrir o player de vídeo
+    window.openPlayer = function(videoUrl) {
+        if (!videoUrl || videoUrl === '#') {
+            alert('Trailer indisponível no momento.');
+            return;
+        }
+        
+        let playerModal = document.getElementById('playerModal');
+        if (!playerModal) {
+            playerModal = document.createElement('div');
+            playerModal.id = 'playerModal';
+            playerModal.className = 'modal';
+            document.body.appendChild(playerModal);
+        }
+
+        // Verifica se já tem parâmetros na URL para usar ? ou &
+        const separator = videoUrl.includes('?') ? '&' : '?';
+
+        playerModal.innerHTML = `
+            <div class="modal-content player-modal-content" style="max-width: 900px; width: 95%; background: #000; border: none;">
+                <span class="close close-player" onclick="closePlayer()">&times;</span>
+                <div class="video-container">
+                    <iframe src="${videoUrl}${separator}autoplay=1" allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        `;
+        playerModal.style.display = 'flex';
+    };
+
+    window.closePlayer = function() {
+        const playerModal = document.getElementById('playerModal');
+        if (playerModal) {
+            playerModal.style.display = 'none';
+            playerModal.innerHTML = '';
+        }
+    };
+
+    // Helper para criar o HTML de um item de conteúdo
+    function createContentCard(item, profile, username) {
+        const isInList = profile.myList && profile.myList.some(fav => fav.id === item.id);
+        
+        return `
+            <div class="content-item">
+                <div class="content-image">
+                    <img src="${item.thumbnailUrl}" alt="${item.title}" class="card-thumbnail" 
+                         onerror="this.src='https://via.placeholder.com/320x180?text=Sem+Imagem'">
+                </div>
+                <div class="content-info">
+                    <h3>${item.title}</h3>
+                    <div class="card-controls">
+                        <span class="content-type">${item.type}</span>
+                        <button class="control-btn play-minimal" onclick="openPlayer('${item.videoUrl}')" title="Play">▶</button>
+                        <button class="control-btn list-minimal" onclick="toggleMyList(${item.id}, '${username}', ${profile.id})" title="Minha Lista">
+                            ${isInList ? '✓' : '+'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Função para adicionar/remover da lista
+    window.toggleMyList = function(itemId, username, profileId) {
+        const item = catalogDB.find(i => i.id === itemId);
+        const user = usersDB[username];
+        const profile = user.profiles.find(p => p.id === profileId);
+
+        const listIndex = profile.myList.findIndex(i => i.id === itemId);
+        if (listIndex > -1) {
+            profile.myList.splice(listIndex, 1);
+        } else {
+            profile.myList.push({ ...item });
+        }
+
+        // Persistir no LocalStorage (usando a lógica de usuários customizados)
+        const customUsers = JSON.parse(localStorage.getItem(CUSTOM_USERS_KEY)) || {};
+        customUsers[username] = user;
+        localStorage.setItem(CUSTOM_USERS_KEY, JSON.stringify(customUsers));
+
+        // Atualizar interface do catálogo sem fechar
+        showCatalog(profile, username);
+    };
 
     // Função para mostrar catálogo
     function showCatalog(profile, username) {
@@ -261,14 +525,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="catalog-nav">
                     <div class="logo">LuraFlix</div>
                     <div class="nav-links">
-                        <a href="#" class="nav-link active">Início</a>
-                        <a href="#" class="nav-link">Séries</a>
-                        <a href="#" class="nav-link">Filmes</a>
-                        <a href="#" class="nav-link">Minha Lista</a>
+                        <a href="#" class="nav-link active" data-target="home">Início</a>
+                        <a href="#" class="nav-link" data-target="series">Séries</a>
+                        <a href="#" class="nav-link" data-target="movies">Filmes</a>
+                        <a href="#" class="nav-link" data-target="mylist">Minha Lista</a>
+                        <a href="#" class="nav-link" onclick="logout()">Sair</a>
                     </div>
                     <div class="user-menu">
                         <div class="current-profile" id="currentProfileBtn">
-                            ${profile.avatar} ${profile.name}
+                            <img src="${profile.avatarUrl}" alt="${profile.name}" class="nav-profile-img">
+                            <span>${profile.name}</span>
                         </div>
                     </div>
                 </div>
@@ -282,23 +548,80 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </section>
 
-                <section class="content-section">
-                    <h2 class="section-title">${profile.isKid ? 'Para as crianças' : 'Em alta'}</h2>
+                <section class="content-section" id="section-mylist">
+                    <h2 class="section-title">Minha Lista</h2>
                     <div class="content-grid">
-                        ${generateContentItems(profile.isKid)}
+                        ${profile.myList && profile.myList.length > 0 
+                            ? profile.myList.map(item => createContentCard(item, profile, username)).join('')
+                            : '<p style="color: #888; grid-column: 1/-1;">Sua lista está vazia. Adicione filmes e séries!</p>'}
                     </div>
                 </section>
 
-                <section class="content-section">
+                <section class="content-section" id="section-trending">
+                    <h2 class="section-title">${profile.isKid ? 'Para as crianças' : 'Em alta'}</h2>
+                    <div class="content-grid">
+                        ${generateContentItems(profile, username)}
+                    </div>
+                </section>
+
+                <section class="content-section" id="section-recommended">
                     <h2 class="section-title">${profile.isKid ? 'Aventuras divertidas' : 'Recomendados para você'}</h2>
                     <div class="content-grid">
-                        ${generateContentItems(profile.isKid, true)}
+                        ${generateContentItems(profile, username, true)}
                     </div>
                 </section>
             </main>
         `;
 
         document.body.appendChild(catalog);
+
+        // Lógica de navegação interna do catálogo
+        const navLinks = catalog.querySelectorAll('.nav-link');
+        const sections = catalog.querySelectorAll('.content-section');
+        const catalogHero = catalog.querySelector('.hero-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const target = this.dataset.target;
+                if (!target) return; // Ignora o link de Sair (que tem onclick)
+
+                e.preventDefault();
+                
+                // Atualiza classe ativa nos links
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                const filterMapping = { 'series': 'Série', 'movies': 'Filme' };
+
+                if (target === 'mylist') {
+                    // Mostra apenas a seção "Minha Lista"
+                    catalogHero.style.display = 'none';
+                    sections.forEach(s => s.style.display = s.id === 'section-mylist' ? 'block' : 'none');
+                } else if (target === 'home') {
+                    // Mostra tudo (visão inicial)
+                    catalogHero.style.display = 'flex';
+                    sections.forEach(s => s.style.display = 'block');
+                    
+                    // Restaura títulos e conteúdos originais
+                    catalog.querySelector('#section-trending .section-title').textContent = profile.isKid ? 'Para as crianças' : 'Em alta';
+                    catalog.querySelector('#section-recommended .section-title').textContent = profile.isKid ? 'Aventuras divertidas' : 'Recomendados para você';
+                    catalog.querySelector('#section-trending .content-grid').innerHTML = generateContentItems(profile, username, false);
+                    catalog.querySelector('#section-recommended .content-grid').innerHTML = generateContentItems(profile, username, true);
+                } else if (filterMapping[target]) {
+                    const filter = filterMapping[target];
+                    const label = target === 'series' ? 'Séries' : 'Filmes';
+
+                    catalogHero.style.display = 'none';
+                    sections.forEach(s => s.style.display = s.id === 'section-mylist' ? 'none' : 'block');
+
+                    // Atualiza títulos e filtra o conteúdo das grades
+                    catalog.querySelector('#section-trending .section-title').textContent = `${label} em alta`;
+                    catalog.querySelector('#section-recommended .section-title').textContent = `${label} recomendados`;
+                    catalog.querySelector('#section-trending .content-grid').innerHTML = generateContentItems(profile, username, false, filter);
+                    catalog.querySelector('#section-recommended .content-grid').innerHTML = generateContentItems(profile, username, true, filter);
+                }
+            });
+        });
 
         // Botão perfil ativo sempre
         const currentProfileBtn = document.getElementById('currentProfileBtn');
@@ -310,37 +633,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Função para gerar itens de conteúdo
-    function generateContentItems(isKid, isRecommended = false) {
-        const kidContent = [
-            { title: 'Frozen 2', image: '❄️', type: 'Filme' },
-            { title: 'Toy Story 4', image: '🤖', type: 'Filme' },
-            { title: 'Moana', image: '🌊', type: 'Filme' },
-            { title: 'Peppa Pig', image: '🐷', type: 'Série' },
-            { title: 'Paw Patrol', image: '🚒', type: 'Série' },
-            { title: 'Bluey', image: '🐶', type: 'Série' }
-        ];
+    function generateContentItems(profile, username, isRecommended = false, filterType = null) {
+        // Filtra o catálogo com base no perfil (Kid ou Adulto)
+        let content = catalogDB.filter(item => item.isKid === profile.isKid);
 
-        const adultContent = [
-            { title: 'Stranger Things', image: '👻', type: 'Série' },
-            { title: 'The Crown', image: '👑', type: 'Série' },
-            { title: 'Breaking Bad', image: '⚗️', type: 'Série' },
-            { title: 'Inception', image: '🌀', type: 'Filme' },
-            { title: 'The Dark Knight', image: '🦇', type: 'Filme' },
-            { title: 'Pulp Fiction', image: '🍔', type: 'Filme' }
-        ];
+        if (filterType) {
+            content = content.filter(item => item.type === filterType);
+        }
 
-        const content = isKid ? kidContent : adultContent;
         const items = isRecommended ? content.slice(0, 4) : content;
 
-        return items.map(item => `
-            <div class="content-item">
-                <div class="content-image">${item.image}</div>
-                <div class="content-info">
-                    <h3>${item.title}</h3>
-                    <span class="content-type">${item.type}</span>
-                </div>
-            </div>
-        `).join('');
+        return items.map(item => createContentCard(item, profile, username)).join('');
     }
 
     // Animação suave ao scroll para as features
