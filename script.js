@@ -542,6 +542,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <a href="#" class="nav-link" onclick="logout()">Sair</a>
                     </div>
                     <div class="user-menu">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Títulos...">
+                            <button class="search-btn" title="Buscar">🔍</button>
+                        </div>
                         <div class="current-profile" id="currentProfileBtn">
                             <img src="${profile.avatarUrl}" alt="${profile.name}" class="nav-profile-img">
                             <span>${profile.name}</span>
@@ -566,6 +570,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             ? profile.myList.map(item => createContentCard(item, profile, username)).join('')
                             : '<p style="color: #888; grid-column: 1/-1;">Sua lista está vazia. Adicione filmes e séries!</p>'}
                     </div>
+                </section>
+
+                <section class="content-section" id="section-search" style="display: none;">
+                    <h2 class="section-title">Resultados da busca</h2>
+                    <div class="content-grid" id="searchGrid"></div>
                 </section>
 
                 <section class="content-section" id="section-trending">
@@ -682,6 +691,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const navLinks = catalog.querySelectorAll('.nav-link');
         const sections = catalog.querySelectorAll('.content-section');
         const catalogHero = catalog.querySelector('.hero-section');
+        const searchSection = catalog.querySelector('#section-search');
+        const searchInput = catalog.querySelector('#searchInput');
 
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
@@ -689,7 +700,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!target) return; // Ignora o link de Sair (que tem onclick)
 
                 e.preventDefault();
-                
+                searchInput.value = ''; // Limpa busca ao navegar
+
                 // Atualiza classe ativa nos links
                 navLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
@@ -700,12 +712,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Mostra apenas a seção "Minha Lista"
                     catalogHero.style.display = 'none';
                     cleanupCarousel();
-                    sections.forEach(s => s.style.display = s.id === 'section-mylist' ? 'block' : 'none');
+                    sections.forEach(s => {
+                        if (s.id === 'section-search') s.style.display = 'none';
+                        else s.style.display = s.id === 'section-mylist' ? 'block' : 'none';
+                    });
                 } else if (target === 'home') {
                     // Mostra tudo (visão inicial)
                     catalogHero.style.display = 'flex';
                     if (!heroInterval) heroInterval = setInterval(updateHero, 15000);
-                    sections.forEach(s => s.style.display = 'block');
+                    sections.forEach(s => {
+                        if (s.id === 'section-search') s.style.display = 'none';
+                        else s.style.display = 'block';
+                    });
                     
                     // Restaura títulos e conteúdos originais
                     catalog.querySelector('#section-trending .section-title').textContent = profile.isKid ? 'Para as crianças' : 'Em alta';
@@ -718,7 +736,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     catalogHero.style.display = 'none';
                     cleanupCarousel();
-                    sections.forEach(s => s.style.display = s.id === 'section-mylist' ? 'none' : 'block');
+                    sections.forEach(s => {
+                        if (s.id === 'section-search' || s.id === 'section-mylist') s.style.display = 'none';
+                        else s.style.display = 'block';
+                    });
 
                     // Atualiza títulos e filtra o conteúdo das grades
                     catalog.querySelector('#section-trending .section-title').textContent = `${label} em alta`;
@@ -727,6 +748,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     catalog.querySelector('#section-recommended .content-grid').innerHTML = generateContentItems(profile, username, true, filter);
                 }
             });
+        });
+
+        // Lógica de busca em tempo real
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            const searchGrid = catalog.querySelector('#searchGrid');
+
+            if (term.length > 0) {
+                // Esconde Hero e seções normais
+                catalogHero.style.display = 'none';
+                cleanupCarousel();
+                sections.forEach(s => s.style.display = 'none');
+                
+                // Filtra catálogo respeitando regra isKid
+                const results = catalogDB.filter(item => 
+                    item.isKid === profile.isKid && 
+                    item.title.toLowerCase().includes(term)
+                );
+
+                searchSection.style.display = 'block';
+                searchGrid.innerHTML = results.length > 0 
+                    ? results.map(item => createContentCard(item, profile, username)).join('')
+                    : '<p style="color: #888; grid-column: 1/-1;">Nenhum título encontrado para sua busca.</p>';
+            } else {
+                // Se limpar a busca, clica no link ativo para restaurar a visão da aba
+                catalog.querySelector('.nav-link.active').click();
+            }
         });
 
         // Botão perfil ativo sempre
