@@ -572,7 +572,7 @@ footer p {
 .current-profile {
     cursor: pointer;
     background: rgba(42,42,42,0.85);
-    padding: 10px 16px;
+    padding: 5px 12px;
     border-radius: 7px;
     border: 1px solid rgba(255,255,255,0.12);
     transition: background 0.2s ease;
@@ -586,8 +586,8 @@ footer p {
 }
 
 .nav-profile-img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 2px;
     object-fit: cover;
 }
