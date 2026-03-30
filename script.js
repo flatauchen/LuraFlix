@@ -416,9 +416,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Função para abrir o player de vídeo
-    window.openPlayer = function(videoUrl) {
-        if (!videoUrl || videoUrl === '#') {
+    window.openPlayer = function(itemId, profileIsKid) {
+        const item = catalogDB.find(i => i.id === itemId);
+        
+        if (!item || !item.videoUrl || item.videoUrl === '#') {
             alert('Trailer indisponível no momento.');
+            return;
+        }
+
+        // Regra de segurança para perfil infantil
+        if (profileIsKid && !item.isKid) {
+            alert('Acesso Negado: Este conteúdo não é permitido para perfis infantis.');
             return;
         }
         
@@ -431,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Verifica se já tem parâmetros na URL para usar ? ou &
+        const videoUrl = item.videoUrl;
         const separator = videoUrl.includes('?') ? '&' : '?';
 
         playerModal.innerHTML = `
@@ -466,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>${item.title}</h3>
                     <div class="card-controls">
                         <span class="content-type">${item.type}</span>
-                        <button class="control-btn play-minimal" onclick="openPlayer('${item.videoUrl}')" title="Play">▶</button>
+                        <button class="control-btn play-minimal" onclick="openPlayer(${item.id}, ${profile.isKid})" title="Play">▶</button>
                         <button class="control-btn list-minimal" onclick="toggleMyList(${item.id}, '${username}', ${profile.id})" title="Minha Lista">
                             ${isInList ? '✓' : '+'}
                         </button>
@@ -518,6 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (footerSection) footerSection.style.display = 'none';
 
         // Criar catálogo
+        let heroInterval;
         const catalog = document.createElement('div');
         catalog.id = 'catalog';
         catalog.innerHTML = `
@@ -542,10 +552,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <main class="catalog-content">
                 <section class="hero-section">
-                    <div class="hero-content">
-                        <h1>Bem-vindo, ${profile.name}!</h1>
-                        <p>${profile.isKid ? 'Conteúdo infantil disponível' : 'O melhor do cinema está na LuraFlix.'}</p>
-                    </div>
+                    <div class="hero-video-bg" id="heroVideoContainer"></div>
+                    <div id="heroInfoOverlay"></div>
+                    <button class="hero-nav-btn prev-hero" id="prevHeroBtn">❮</button>
+                    <button class="hero-nav-btn next-hero" id="nextHeroBtn">❯</button>
+                    <div class="hero-pagination" id="heroPagination"></div>
                 </section>
 
                 <section class="content-section" id="section-mylist">
@@ -575,6 +586,98 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.body.appendChild(catalog);
 
+        // Lógica do Carrossel Hero
+        const heroData = catalogDB
+            .filter(item => item.isKid === profile.isKid)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4);
+
+        let currentHeroIndex = 0;
+        let isHeroMuted = true;
+
+        // Função global para alternar o som do Hero
+        window.toggleHeroMute = function() {
+            isHeroMuted = !isHeroMuted;
+            // Decrementar o index para repetir o mesmo item mas com o novo estado de som
+            currentHeroIndex = (currentHeroIndex - 1 + heroData.length) % heroData.length;
+            updateHero();
+        };
+
+        function updateHero() {
+            const itemIndex = currentHeroIndex;
+            const item = heroData[itemIndex];
+            const videoContainer = document.getElementById('heroVideoContainer');
+            const infoOverlay = document.getElementById('heroInfoOverlay');
+            
+            if (!videoContainer || !infoOverlay) return;
+
+            const separator = item.videoUrl.includes('?') ? '&' : '?';
+            const isInList = profile.myList && profile.myList.some(fav => fav.id === item.id);
+            
+            // Atualiza o Vídeo (Injetando parâmetro de som baseado no estado)
+            videoContainer.innerHTML = `
+                <iframe src="${item.videoUrl}${separator}autoplay=1&mute=${isHeroMuted ? 1 : 0}&controls=0&modestbranding=1&rel=0&iv_load_policy=3&start=15&end=30&vq=hd720" 
+                        frameborder="0" allow="autoplay"></iframe>
+            `;
+
+            // Atualiza as informações (Título e Botões)
+            infoOverlay.innerHTML = `
+                <div class="hero-info-overlay">
+                    <div class="hero-info-title">${item.title}</div>
+                    <div class="hero-info-controls">
+                        <button class="control-btn" onclick="toggleHeroMute()" title="${isHeroMuted ? 'Ativar som' : 'Mudar para mudo'}">
+                            ${isHeroMuted ? '🔇' : '🔊'}
+                        </button>
+                        <button class="control-btn" onclick="toggleMyList(${item.id}, '${username}', ${profile.id})" title="Minha Lista">
+                            ${isInList ? '✓' : '+'}
+                        </button>
+                        <button class="cta-button" style="padding: 8px 20px; font-size: 1rem;" onclick="openPlayer(${item.id}, ${profile.isKid})">
+                            ▶ Assistir
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Atualiza pontos de paginação
+            const dots = catalog.querySelectorAll('.pagination-dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === itemIndex);
+            });
+
+            currentHeroIndex = (currentHeroIndex + 1) % heroData.length;
+        }
+
+        // Inicia o carrossel e cria os pontos de paginação
+        const pagination = catalog.querySelector('#heroPagination');
+        if (pagination) {
+            pagination.innerHTML = heroData.map(() => '<span class="pagination-dot"></span>').join('');
+        }
+
+        updateHero();
+        heroInterval = setInterval(updateHero, 15000);
+
+        // Eventos dos botões de navegação
+        catalog.querySelector('#prevHeroBtn').onclick = () => {
+            cleanupCarousel();
+            currentHeroIndex = (currentHeroIndex - 2 + heroData.length) % heroData.length;
+            updateHero();
+            heroInterval = setInterval(updateHero, 15000);
+        };
+
+        catalog.querySelector('#nextHeroBtn').onclick = () => {
+            cleanupCarousel();
+            updateHero();
+            heroInterval = setInterval(updateHero, 15000);
+        };
+
+        // Limpar intervalo quando o catálogo for removido ou mudar de aba
+        const cleanupCarousel = () => {
+            if (heroInterval) {
+                clearInterval(heroInterval);
+                heroInterval = null;
+            }
+        };
+
         // Lógica de navegação interna do catálogo
         const navLinks = catalog.querySelectorAll('.nav-link');
         const sections = catalog.querySelectorAll('.content-section');
@@ -596,10 +699,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (target === 'mylist') {
                     // Mostra apenas a seção "Minha Lista"
                     catalogHero.style.display = 'none';
+                    cleanupCarousel();
                     sections.forEach(s => s.style.display = s.id === 'section-mylist' ? 'block' : 'none');
                 } else if (target === 'home') {
                     // Mostra tudo (visão inicial)
                     catalogHero.style.display = 'flex';
+                    if (!heroInterval) heroInterval = setInterval(updateHero, 15000);
                     sections.forEach(s => s.style.display = 'block');
                     
                     // Restaura títulos e conteúdos originais
@@ -612,6 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const label = target === 'series' ? 'Séries' : 'Filmes';
 
                     catalogHero.style.display = 'none';
+                    cleanupCarousel();
                     sections.forEach(s => s.style.display = s.id === 'section-mylist' ? 'none' : 'block');
 
                     // Atualiza títulos e filtra o conteúdo das grades
