@@ -1,0 +1,519 @@
+[
+    {
+        "id": 1,
+        "title": "Frozen 2",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/TTIbWKEUPnc",
+        "thumbnailUrl": "https://img.youtube.com/vi/TTIbWKEUPnc/mqdefault.jpg"
+    },
+    {
+        "id": 2,
+        "title": "Toy Story 4",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/VnFgm4BTxMI",
+        "thumbnailUrl": "https://img.youtube.com/vi/VnFgm4BTxMI/mqdefault.jpg"
+    },
+    {
+        "id": 3,
+        "title": "Moana",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/XL4Tf1Eohv8",
+        "thumbnailUrl": "https://img.youtube.com/vi/XL4Tf1Eohv8/mqdefault.jpg"
+    },
+    {
+        "id": 4,
+        "title": "Peppa Pig",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/lGZOFDwnWrI",
+        "thumbnailUrl": "https://img.youtube.com/vi/lGZOFDwnWrI/mqdefault.jpg"
+    },
+    {
+        "id": 5,
+        "title": "Paw Patrol",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/lGZOFDwnWrI",
+        "thumbnailUrl": "https://img.youtube.com/vi/lGZOFDwnWrI/mqdefault.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Bluey",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/hA3-KWa2YfI",
+        "thumbnailUrl": "https://img.youtube.com/vi/hA3-KWa2YfI/mqdefault.jpg"
+    },
+    {
+        "id": 7,
+        "title": "Stranger Things",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/EgUNjiuSsaI",
+        "thumbnailUrl": "https://img.youtube.com/vi/EgUNjiuSsaI/mqdefault.jpg"
+    },
+    {
+        "id": 8,
+        "title": "The Crown",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/dFZC-_T_irA",
+        "thumbnailUrl": "https://img.youtube.com/vi/dFZC-_T_irA/mqdefault.jpg"
+    },
+    {
+        "id": 9,
+        "title": "Breaking Bad",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/_-Nv0JOcGxg",
+        "thumbnailUrl": "https://img.youtube.com/vi/_-Nv0JOcGxg/mqdefault.jpg"
+    },
+    {
+        "id": 10,
+        "title": "Inception",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/R_VX0e0PX90",
+        "thumbnailUrl": "https://img.youtube.com/vi/R_VX0e0PX90/mqdefault.jpg"
+    },
+    {
+        "id": 11,
+        "title": "The Dark Knight",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/8sB1HTghkg4",
+        "thumbnailUrl": "https://img.youtube.com/vi/8sB1HTghkg4/mqdefault.jpg"
+    },
+    {
+        "id": 12,
+        "title": "Pulp Fiction",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/YBZp3tkua2Y",
+        "thumbnailUrl": "https://img.youtube.com/vi/YBZp3tkua2Y/mqdefault.jpg"
+    },    {
+        "id": 13,
+        "title": "Matrix",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/mPYfd6PCmYY",
+        "thumbnailUrl": "https://img.youtube.com/vi/mPYfd6PCmYY/mqdefault.jpg"
+    },    {
+        "id": 14,
+        "title": "Rambo",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/oXngES_l_HQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/oXngES_l_HQ/mqdefault.jpg"
+    },    {
+        "id": 15,
+        "title": "Avatar",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://youtube.com/embed/ooVvH2IYz0w",
+        "thumbnailUrl": "https://img.youtube.com/vi/ooVvH2IYz0w/mqdefault.jpg"
+    },
+    {
+        "id": 16,
+        "title": "Shrek",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/4LT5Km2svpQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/4LT5Km2svpQ/mqdefault.jpg"
+    },
+    {
+        "id": 17,
+        "title": "Procurando Nemo",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/SPHfeNgogVs",
+        "thumbnailUrl": "https://img.youtube.com/vi/SPHfeNgogVs/mqdefault.jpg"
+    },
+    {
+        "id": 18,
+        "title": "Carros",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/WGByijP0Leo",
+        "thumbnailUrl": "https://img.youtube.com/vi/WGByijP0Leo/mqdefault.jpg"
+    },
+    {
+        "id": 19,
+        "title": "Encanto",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/zRMicKd9IH8",
+        "thumbnailUrl": "https://img.youtube.com/vi/zRMicKd9IH8/mqdefault.jpg"
+    },
+    {
+        "id": 20,
+        "title": "Viva: A Vida é uma Festa",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/zNCz4mQzfEI",
+        "thumbnailUrl": "https://img.youtube.com/vi/zNCz4mQzfEI/mqdefault.jpg"
+    },
+    {
+        "id": 21,
+        "title": "O Rei Leão",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/7TavVZMewpY",
+        "thumbnailUrl": "https://img.youtube.com/vi/7TavVZMewpY/mqdefault.jpg"
+    },
+    {
+        "id": 22,
+        "title": "Homem-Aranha: No Aranhaverso",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/SS6ABPkfmBE",
+        "thumbnailUrl": "https://img.youtube.com/vi/SS6ABPkfmBE/mqdefault.jpg"
+    },
+    {
+        "id": 23,
+        "title": "Gravity Falls",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/X2DUpDxFJyg",
+        "thumbnailUrl": "https://img.youtube.com/vi/X2DUpDxFJyg/mqdefault.jpg"
+    },
+    {
+        "id": 24,
+        "title": "Miraculous: Ladybug",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/aeLSG9AZ-oc",
+        "thumbnailUrl": "https://img.youtube.com/vi/aeLSG9AZ-oc/mqdefault.jpg"
+    },
+    {
+        "id": 25,
+        "title": "Pokémon Journeys",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/dihcy9kIdkQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/dihcy9kIdkQ/mqdefault.jpg"
+    },
+    {
+        "id": 26,
+        "title": "Bob Esponja",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/K4n-ZPDQ3Ao",
+        "thumbnailUrl": "https://img.youtube.com/vi/K4n-ZPDQ3Ao/mqdefault.jpg"
+    },
+    {
+        "id": 27,
+        "title": "Ben 10",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/uCJnNGfJdAY",
+        "thumbnailUrl": "https://img.youtube.com/vi/uCJnNGfJdAY/mqdefault.jpg"
+    },
+    {
+        "id": 28,
+        "title": "Scooby-Doo! Mistério S/A",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/rrVENhbMj54",
+        "thumbnailUrl": "https://img.youtube.com/vi/rrVENhbMj54/mqdefault.jpg"
+    },
+    {
+        "id": 29,
+        "title": "The Office",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/gO8N3L_aERg",
+        "thumbnailUrl": "https://img.youtube.com/vi/gO8N3L_aERg/mqdefault.jpg"
+    },
+    {
+        "id": 30,
+        "title": "Friends",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/wtZrQzzlqi4",
+        "thumbnailUrl": "https://img.youtube.com/vi/wtZrQzzlqi4/mqdefault.jpg"
+    },
+    {
+        "id": 31,
+        "title": "Game of Thrones",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/dyMuXzpxBM0",
+        "thumbnailUrl": "https://img.youtube.com/vi/dyMuXzpxBM0/mqdefault.jpg"
+    },
+    {
+        "id": 32,
+        "title": "Better Call Saul",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/FAdiEjeNRi0",
+        "thumbnailUrl": "https://img.youtube.com/vi/FAdiEjeNRi0/mqdefault.jpg"
+    },
+    {
+        "id": 33,
+        "title": "Succession",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/kScZSpzvafA",
+        "thumbnailUrl": "https://img.youtube.com/vi/kScZSpzvafA/mqdefault.jpg"
+    },
+    {
+        "id": 34,
+        "title": "Chernobyl",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/jQO2EhzG-uU",
+        "thumbnailUrl": "https://img.youtube.com/vi/jQO2EhzG-uU/mqdefault.jpg"
+    },
+    {
+        "id": 35,
+        "title": "House of the Dragon",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/DotnJ7tTA34",
+        "thumbnailUrl": "https://img.youtube.com/vi/DotnJ7tTA34/mqdefault.jpg"
+    },
+    {
+        "id": 36,
+        "title": "The Boys",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/M1bhOaLV4FU",
+        "thumbnailUrl": "https://img.youtube.com/vi/M1bhOaLV4FU/mqdefault.jpg"
+    },
+    {
+        "id": 37,
+        "title": "The Mandalorian",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/aOC8E8z_ifw",
+        "thumbnailUrl": "https://img.youtube.com/vi/aOC8E8z_ifw/mqdefault.jpg"
+    },
+    {
+        "id": 38,
+        "title": "Ted Lasso",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/3u7EIiohs6U",
+        "thumbnailUrl": "https://img.youtube.com/vi/3u7EIiohs6U/mqdefault.jpg"
+    },
+    {
+        "id": 39,
+        "title": "Black Mirror",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/v3Z1GG4iIDU",
+        "thumbnailUrl": "https://img.youtube.com/vi/v3Z1GG4iIDU/mqdefault.jpg"
+    },
+    {
+        "id": 40,
+        "title": "Dark",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/rrwycJ08PSA",
+        "thumbnailUrl": "https://img.youtube.com/vi/rrwycJ08PSA/mqdefault.jpg"
+    },
+    {
+        "id": 41,
+        "title": "O Poderoso Chefão",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/SaHZHU-44XA",
+        "thumbnailUrl": "https://img.youtube.com/vi/SaHZHU-44XA/mqdefault.jpg"
+    },
+    {
+        "id": 42,
+        "title": "Interestelar",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/zSWdZVtXT7E",
+        "thumbnailUrl": "https://img.youtube.com/vi/zSWdZVtXT7E/mqdefault.jpg"
+    },
+    {
+        "id": 43,
+        "title": "Parasita",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/xFCrQy5IXI0",
+        "thumbnailUrl": "https://img.youtube.com/vi/xFCrQy5IXI0/mqdefault.jpg"
+    },
+    {
+        "id": 44,
+        "title": "Coringa",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/t433PEQGErc",
+        "thumbnailUrl": "https://img.youtube.com/vi/t433PEQGErc/mqdefault.jpg"
+    },
+    {
+        "id": 45,
+        "title": "Vingadores: Ultimato",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/spJoZReeIeQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/spJoZReeIeQ/mqdefault.jpg"
+    },
+    {
+        "id": 46,
+        "title": "Gladiador",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/P5ieIbInFpg",
+        "thumbnailUrl": "https://img.youtube.com/vi/P5ieIbInFpg/mqdefault.jpg"
+    },
+    {
+        "id": 47,
+        "title": "Titanic",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/I7c1etV7D7g",
+        "thumbnailUrl": "https://img.youtube.com/vi/I7c1etV7D7g/mqdefault.jpg"
+    },
+    {
+        "id": 48,
+        "title": "Forrest Gump",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/bLvqoHBptjg",
+        "thumbnailUrl": "https://img.youtube.com/vi/bLvqoHBptjg/mqdefault.jpg"
+    },
+    {
+        "id": 49,
+        "title": "Duna",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/n9xhJrPXop4",
+        "thumbnailUrl": "https://img.youtube.com/vi/n9xhJrPXop4/mqdefault.jpg"
+    },
+    {
+        "id": 50,
+        "title": "Oppenheimer",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/F3OxA9Cz17A",
+        "thumbnailUrl": "https://img.youtube.com/vi/F3OxA9Cz17A/mqdefault.jpg"
+    },
+    {
+        "id": 51,
+        "title": "Barbie",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/pBk4NYhWNMM",
+        "thumbnailUrl": "https://img.youtube.com/vi/pBk4NYhWNMM/mqdefault.jpg"
+    },
+    {
+        "id": 52,
+        "title": "Assassinos da Lua das Flores",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/T22WRjooZn4",
+        "thumbnailUrl": "https://img.youtube.com/vi/T22WRjooZn4/mqdefault.jpg"
+    },
+    {
+        "id": 53,
+        "title": "Tudo em Todo Lugar ao Mesmo Tempo",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/wxN1T1uxQ2g",
+        "thumbnailUrl": "https://img.youtube.com/vi/wxN1T1uxQ2g/mqdefault.jpg"
+    },
+    {
+        "id": 54,
+        "title": "Whiplash",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/7d_jQycdQGo",
+        "thumbnailUrl": "https://img.youtube.com/vi/7d_jQycdQGo/mqdefault.jpg"
+    },
+    {
+        "id": 55,
+        "title": "Mad Max: Estrada da Fúria",
+        "type": "Filme",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/hEJnMQG9ev8",
+        "thumbnailUrl": "https://img.youtube.com/vi/hEJnMQG9ev8/mqdefault.jpg"
+    },
+    {
+        "id": 56,
+        "title": "Como Treinar o Seu Dragão",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/HIbwgbbJzSs",
+        "thumbnailUrl": "https://img.youtube.com/vi/HIbwgbbJzSs/mqdefault.jpg"
+    },
+    {
+        "id": 57,
+        "title": "Kung Fu Panda",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/PXi3Mv6KMzY",
+        "thumbnailUrl": "https://img.youtube.com/vi/PXi3Mv6KMzY/mqdefault.jpg"
+    },
+    {
+        "id": 58,
+        "title": "Meu Malvado Favorito",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/seSIJf5mhPE",
+        "thumbnailUrl": "https://img.youtube.com/vi/seSIJf5mhPE/mqdefault.jpg"
+    },
+    {
+        "id": 59,
+        "title": "Minions",
+        "type": "Filme",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/P9-FCC6I7u0",
+        "thumbnailUrl": "https://img.youtube.com/vi/P9-FCC6I7u0/mqdefault.jpg"
+    },
+    {
+        "id": 60,
+        "title": "Phineas e Ferb",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/QJ83JMN9ttU",
+        "thumbnailUrl": "https://img.youtube.com/vi/QJ83JMN9ttU/mqdefault.jpg"
+    },
+    {
+        "id": 61,
+        "title": "Jovens Titãs em Ação",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/3W-pLJO2GF8",
+        "thumbnailUrl": "https://img.youtube.com/vi/3W-pLJO2GF8/mqdefault.jpg"
+    },
+    {
+        "id": 62,
+        "title": "Steven Universo",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/h8nIHZ-0kS4",
+        "thumbnailUrl": "https://img.youtube.com/vi/h8nIHZ-0kS4/mqdefault.jpg"
+    },
+    {
+        "id": 63,
+        "title": "Hora de Aventura",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/2E46-7TrEc8",
+        "thumbnailUrl": "https://img.youtube.com/vi/2E46-7TrEc8/mqdefault.jpg"
+    },
+    {
+        "id": 64,
+        "title": "Batman: A Série Animada",
+        "type": "Série",
+        "isKid": true,
+        "videoUrl": "https://www.youtube.com/embed/7lCvECwicFw",
+        "thumbnailUrl": "https://img.youtube.com/vi/7lCvECwicFw/mqdefault.jpg"
+    },
+    {
+        "id": 65,
+        "title": "Cyberpunk: Mercenários",
+        "type": "Série",
+        "isKid": false,
+        "videoUrl": "https://www.youtube.com/embed/25XGPHY1TMM",
+        "thumbnailUrl": "https://img.youtube.com/vi/25XGPHY1TMM/mqdefault.jpg"
+    }
+]

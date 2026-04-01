@@ -1,0 +1,97 @@
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 180px); 
+    gap: 30px;
+    max-width: 1000px;
+    margin: 20px auto;
+    justify-content: center;
+}
+
+.profile-card {
+    background-color: #222;
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 2px solid rgba(255,255,255,0.15);
+}
+
+.profile-card:hover {
+    transform: translateY(-5px) scale(1.04);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+.profile-avatar {
+    margin: 0 auto 12px auto; /* Centraliza o container do avatar horizontalmente */
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name { font-size: 1.4rem; font-weight: 700; color: #fff; }
+
+.manage-profiles-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: 700;
+}
+
+#profileModal.modal { backdrop-filter: blur(4px); z-index: 1100; }
+
+.profile-modal-content {
+    padding: 20px;
+    width: 50% !important;
+    background-color: #141414;
+    border-radius: 12px;
+    border: 4px solid #333; /* Aumenta a espessura da borda do modal */
+}
+
+.profile-card.manage-mode { position: relative; }
+.profile-card.manage-mode::after {
+    content: '✎';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 12px;
+}
+
+.add-profile-card {
+    border: 2px dashed #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #444;
+}
+
+.add-profile-card:hover { border-color: #fff; color: #fff; }
+
+.profile-edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.delete-profile-btn {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+.delete-profile-btn:hover { background: var(--primary-color); color: #fff; }

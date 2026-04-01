@@ -1,0 +1,27 @@
+:root {
+    --primary-color: #e50914;
+    --primary-hover: #f40612;
+    --bg-dark: #141414;
+    --bg-black: #000;
+    --text-white: #ffffff;
+    --text-gray: #cccccc;
+    --card-bg: #2c2c2c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
