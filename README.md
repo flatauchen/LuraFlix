@@ -51,4 +51,4 @@ Você pode conferir a versão live do projeto clicando no link abaixo:
 📄 Licença
 Este projeto está sob a licença...
 
-Desenvolvido com código e prompt por Flavio/flatauchen
+Desenvolvido com código e prompt por Flavio / flatauchen
